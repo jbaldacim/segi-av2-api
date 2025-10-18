@@ -45,7 +45,7 @@ Para iniciar o servidor em modo de desenvolvimento, execute o seguinte comando.
 O servidor irá reiniciar automaticamente a cada alteração nos arquivos.
 
 ```sh
-pnpm run dev
+pnpm dev
 ```
 
 O servidor estará disponível em `http://localhost:3000`.
