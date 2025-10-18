@@ -25,7 +25,7 @@ uma operação XOR bit a bit.
 1.  Clone o repositório para a sua máquina local:
 
     ```sh
-    git clone <URL_DO_REPOSITORIO>
+    git clone https://github.com/jbaldacim/segi-av2-api
     ```
 
 2.  Navegue até o diretório do projeto:
@@ -87,8 +87,7 @@ texto cifrado em formato binário.
 
 ### 2. Decifrar Texto
 
-Este endpoint recebe um texto cifrado (em formato binário) e uma chave, и
-retorna o texto claro original.
+Este endpoint recebe um texto cifrado (em formato binário) e uma chave, e retorna o texto claro original.
 
 - **URL**: `/decifrar`
 - **Método**: `POST`
