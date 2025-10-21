@@ -1,134 +1,113 @@
-# Cifra de Vernam API
+# 🧩 Cifra de Vernam API
 
-Este projeto é uma API RESTful construída com Node.js, Express e TypeScript que
-implementa a Cifra de Vernam. A API fornece endpoints para cifrar e decifrar
-texto.
+API RESTful em **Node.js + Express + TypeScript** que implementa a **Cifra de Vernam (XOR)** para cifrar e decifrar textos.  
+Agora com **Swagger UI** para testar direto no navegador.
 
-A Cifra de Vernam é um método de criptografia inquebrável, desde que a chave
-seja verdadeiramente aleatória, usada apenas uma vez, e mantida em segredo. O
-processo de cifragem envolve a combinação do texto claro com a chave através de
-uma operação XOR bit a bit.
+## 🚀 Tecnologias
 
-## Tecnologias Utilizadas
+- Node.js • Express • TypeScript  
+- Swagger UI Express • Swagger JSDoc  
+- CORS
 
-- Node.js
-- Express
-- TypeScript
+## 📦 Pré-requisitos
 
-## Pré-requisitos
+- Node.js 18+  
+- npm
 
-- Node.js (versão 18 ou superior recomendada)
-- pnpm (ou outro gerenciador de pacotes como npm ou yarn)
+## ⚙️ Instalação
 
-## Instalação
-
-1.  Clone o repositório para a sua máquina local:
-
-    ```sh
-    git clone https://github.com/jbaldacim/segi-av2-api
-    ```
-
-2.  Navegue até o diretório do projeto:
-
-    ```sh
-    cd segi-av2-api
-    ```
-
-3.  Instale as dependências do projeto:
-    ```sh
-    pnpm install
-    ```
-
-## Como Executar
-
-Para iniciar o servidor em modo de desenvolvimento, execute o seguinte comando.
-O servidor irá reiniciar automaticamente a cada alteração nos arquivos.
-
-```sh
-pnpm dev
+```bash
+git clone https://github.com/jbaldacim/segi-av2-api
+cd segi-av2-api
+npm install
 ```
 
-O servidor estará disponível em `http://localhost:3000`.
+## ▶️ Execução
 
-## Endpoints da API
+```bash
+npm run dev
+```
 
-A API expõe dois endpoints principais para cifragem e decifragem de texto.
+- API: `http://localhost:3000`  
+- Swagger UI: `http://localhost:3000/docs`  
+- OpenAPI JSON: `http://localhost:3000/docs.json`
 
-### 1. Cifrar Texto
+---
 
-Este endpoint recebe um texto claro e uma chave, ambos como strings, e retorna o
-texto cifrado em formato binário.
+## 📘 Endpoints
 
-- **URL**: `/cifrar`
-- **Método**: `POST`
-- **Corpo da Requisição**:
+### 1) **Cifrar Texto**
+Recebe o texto claro e a chave (mesmo tamanho) e retorna o texto cifrado em **binário**.
+
+- **URL**: `POST /cifrar`  
+- **Body (exemplo padrão do projeto)**:
   ```json
   {
-    "textoClaro": "string",
-    "chave": "string"
+    "textoClaro": "OLA",
+    "chave": "CHT"
   }
   ```
-- **Regras**:
-  - `textoClaro` e `chave` são campos obrigatórios.
-  - `textoClaro` e `chave` devem ter o mesmo tamanho.
-  - O tamanho máximo para `textoClaro` e `chave` é de 255 caracteres.
-- **Resposta de Sucesso (200 OK)**:
+- **200 OK**:
   ```json
   {
     "textoCifrado": "011010110110010101111001"
   }
   ```
-- **Resposta de Erro (400 Bad Request)**:
+  > Obs.: O valor acima é apenas um exemplo de formato; o binário real depende da sua implementação.
+
+- **400 Bad Request**:
   ```json
   {
     "error": "Requisição inválida: 'textoClaro' e 'chave' devem ter o mesmo tamanho."
   }
   ```
 
-### 2. Decifrar Texto
+---
 
-Este endpoint recebe um texto cifrado (em formato binário) e uma chave, e retorna o texto claro original.
+### 2) **Decifrar Texto**
+Recebe o texto cifrado (binário) e a chave, e retorna o texto claro.
 
-- **URL**: `/decifrar`
-- **Método**: `POST`
-- **Corpo da Requisição**:
+- **URL**: `POST /decifrar`  
+- **Body (exemplo padrão do projeto)**:
   ```json
   {
-    "textoCifrado": "string",
-    "chave": "string"
+    "textoCifrado": "000011000000010000010101",
+    "chave": "CHT"
   }
   ```
-- **Regras**:
-  - `textoCifrado` e `chave` são campos obrigatórios.
-  - O tamanho de `textoCifrado` (em bits) deve ser 8 vezes o tamanho da `chave`
-    (em caracteres).
-  - O tamanho máximo para `textoCifrado` é de 2048 bits.
-- **Resposta de Sucesso (200 OK)**:
+  > Dica: o tamanho em **bits** de `textoCifrado` deve ser **8 ×** o tamanho da `chave`.  
+  > Ex.: `CHT` (3 caracteres) ⇒ 24 bits.
+
+- **200 OK**:
   ```json
   {
-    "textoClaro": "exemplo"
+    "textoClaro": "OLA"
   }
   ```
-- **Resposta de Erro (400 Bad Request)**:
+
+- **400 Bad Request**:
   ```json
   {
     "error": "Requisição inválida: 'textoCifrado' deve ter o tamanho correto em bits correspondente ao tamanho da 'chave'."
   }
   ```
 
-## Estrutura do Projeto
+---
+
+## 🗂️ Estrutura do Projeto
 
 ```
 /
 |-- src/
 |   |-- controllers/
-|   |   `-- vernam.controller.ts  // Controladores que lidam com a lógica da requisição/resposta.
+|   |   └── vernam.controller.ts   # Regras de negócio (req/res)
 |   |-- routes/
-|   |   `-- vernam.routes.ts      // Definição das rotas da API.
+|   |   └── vernam.routes.ts       # Rotas + anotações Swagger
 |   |-- services/
-|   |   `-- vernam.services.ts    // Lógica principal da Cifra de Vernam.
-|   `-- server.ts                 // Ponto de entrada da aplicação Express.
+|   |   └── vernam.services.ts     # Lógica da Cifra de Vernam
+|   |-- swagger.ts                 # Spec OpenAPI (schemas e config)
+|   └── server.ts                  # Bootstrap do Express + Swagger UI
 |-- package.json
-|-- pnpm-lock.yaml
-`-- tsconfig.json
+|-- tsconfig.json
+└-- README.md
 ```
