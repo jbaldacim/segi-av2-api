@@ -1,12 +1,16 @@
+Alunos: Eduardo Paulino de Souza e João Leonardo Fleury Baldacim
+
 # 🧩 Cifra de Vernam API
 
-API RESTful em **Node.js + Express + TypeScript** que implementa a **Cifra de Vernam (XOR)** para cifrar e decifrar textos.  
-Agora com **Swagger UI** para testar direto no navegador.
+API RESTful em **Node.js + Express + TypeScript** que implementa a **Cifra de Vernam (XOR)** para cifrar e decifrar textos com **Swagger UI** para testar direto no navegador.
 
 ## 🚀 Tecnologias
 
-- Node.js • Express • TypeScript  
-- Swagger UI Express • Swagger JSDoc  
+- Node.js
+- Express
+- TypeScript  
+- Swagger UI Express
+- Swagger JSDoc  
 - CORS
 
 ## 📦 Pré-requisitos
